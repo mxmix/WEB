@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PLANZAJECModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Godziny">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DzienTyg" Type="Int32" />
+    <Property Name="GodzRozp" Type="Time" Precision="7" />
+    <Property Name="GodzZak" Type="Time" Precision="7" />
+    <Property Name="LiczbaGodzin" Type="Int32" />
+    <Property Name="IdProwadzacego" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.IdProwadzacego" FromRole="Godziny" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Plan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DzienTyg" Type="Int32" />
+    <Property Name="GodzRozp" Type="Time" Precision="7" />
+    <Property Name="GodzZak" Type="Time" Precision="7" />
+    <Property Name="IdProwadzacego" Type="Int32" />
+    <NavigationProperty Name="Users" Relationship="Self.IdUsera" FromRole="Plan" ToRole="Users" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Imie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Tytul" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Instytut" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Haslo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Godziny" Relationship="Self.IdProwadzacego" FromRole="Users" ToRole="Godziny" />
+    <NavigationProperty Name="Plan" Relationship="Self.IdUsera" FromRole="Users" ToRole="Plan" />
+  </EntityType>
+  <Association Name="IdProwadzacego">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Godziny" Type="Self.Godziny" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Godziny">
+        <PropertyRef Name="IdProwadzacego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IdUsera">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Plan" Type="Self.Plan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Plan">
+        <PropertyRef Name="IdProwadzacego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PLANZAJECEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Godziny" EntityType="Self.Godziny" />
+    <EntitySet Name="Plan" EntityType="Self.Plan" />
+    <EntitySet Name="Users" EntityType="Self.Users" />
+    <AssociationSet Name="IdProwadzacego" Association="Self.IdProwadzacego">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Godziny" EntitySet="Godziny" />
+    </AssociationSet>
+    <AssociationSet Name="IdUsera" Association="Self.IdUsera">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Plan" EntitySet="Plan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

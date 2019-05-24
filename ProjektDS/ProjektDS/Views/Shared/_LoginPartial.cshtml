@@ -1,0 +1,21 @@
+﻿@if (Request.IsAuthenticated)
+{
+    <ul class="nav navbar-nav navbar-left">
+        <li>
+            @Html.ActionLink("Witaj " + @HttpContext.Current.User.Identity.Name + "!", "Index", "Home", routeValues: null, htmlAttributes: new { title = "Home" })
+        </li>
+        
+        <li>
+            @Html.ActionLink("Wyloguj!", "Wylogowywanie", "Konto", routeValues: null, htmlAttributes: new { title = "Home" })
+        </li>
+    </ul>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-left">
+        <li>@Html.ActionLink("Zarejestruj się", "Rejestracja", "Konto", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Zaloguj się", "Logowanie", "Konto", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
+
+

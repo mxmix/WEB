@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PLANZAJECModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Godziny">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DzienTyg" Type="int" />
+    <Property Name="GodzRozp" Type="time" Precision="7" />
+    <Property Name="GodzZak" Type="time" Precision="7" />
+    <Property Name="LiczbaGodzin" Type="int" />
+    <Property Name="IdProwadzacego" Type="int" />
+  </EntityType>
+  <EntityType Name="Plan">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DzienTyg" Type="int" />
+    <Property Name="GodzRozp" Type="time" Precision="7" />
+    <Property Name="GodzZak" Type="time" Precision="7" />
+    <Property Name="IdProwadzacego" Type="int" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Imie" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Nazwisko" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Tytul" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Instytut" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Haslo" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <Association Name="IdProwadzacego">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Godziny" Type="Self.Godziny" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Godziny">
+        <PropertyRef Name="IdProwadzacego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="IdUsera">
+    <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+    <End Role="Plan" Type="Self.Plan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Plan">
+        <PropertyRef Name="IdProwadzacego" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PLANZAJECModelStoreContainer">
+    <EntitySet Name="Godziny" EntityType="Self.Godziny" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Plan" EntityType="Self.Plan" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="IdProwadzacego" Association="Self.IdProwadzacego">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Godziny" EntitySet="Godziny" />
+    </AssociationSet>
+    <AssociationSet Name="IdUsera" Association="Self.IdUsera">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Plan" EntitySet="Plan" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

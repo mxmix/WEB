@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="PLANZAJECModelStoreContainer" CdmEntityContainer="PLANZAJECEntities">
+    <EntitySetMapping Name="Godziny">
+      <EntityTypeMapping TypeName="PLANZAJECModel.Godziny">
+        <MappingFragment StoreEntitySet="Godziny">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DzienTyg" ColumnName="DzienTyg" />
+          <ScalarProperty Name="GodzRozp" ColumnName="GodzRozp" />
+          <ScalarProperty Name="GodzZak" ColumnName="GodzZak" />
+          <ScalarProperty Name="LiczbaGodzin" ColumnName="LiczbaGodzin" />
+          <ScalarProperty Name="IdProwadzacego" ColumnName="IdProwadzacego" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Plan">
+      <EntityTypeMapping TypeName="PLANZAJECModel.Plan">
+        <MappingFragment StoreEntitySet="Plan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DzienTyg" ColumnName="DzienTyg" />
+          <ScalarProperty Name="GodzRozp" ColumnName="GodzRozp" />
+          <ScalarProperty Name="GodzZak" ColumnName="GodzZak" />
+          <ScalarProperty Name="IdProwadzacego" ColumnName="IdProwadzacego" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="PLANZAJECModel.Users">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Imie" ColumnName="Imie" />
+          <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+          <ScalarProperty Name="Tytul" ColumnName="Tytul" />
+          <ScalarProperty Name="Instytut" ColumnName="Instytut" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Haslo" ColumnName="Haslo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
